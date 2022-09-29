@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { pricePerItem } from "../constants";
 
 // format number as currency
-const formatCurrency = (amount) => {
+export const formatCurrency = (amount) => {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",

@@ -3,10 +3,11 @@ import { rest } from "msw";
 import {
   render,
   screen,
-  waitFor,
+  // waitFor,
 } from "../../../test-utils/testing-library-utils";
 import { server } from "../../../mocks/server";
 import OrderEntry from "../OrderEntry";
+import userEvent from "@testing-library/user-event";
 
 describe("OrderEntry", () => {
   test("handle errors for scoops and topping routes", async () => {
@@ -28,5 +29,39 @@ describe("OrderEntry", () => {
 
     expect(alerts).toHaveLength(2);
     // });
+  });
+
+  test("update scoops, then toppings and check grandTotal", async () => {
+    render(<OrderEntry />);
+
+    // check grandTotal start on $0.00
+    const grandTotal = screen.getByText("Grand total: $", {
+      exact: false,
+    });
+    expect(grandTotal).toHaveTextContent(/\$0.00/i);
+
+    // update scoops and then update toppings and check grand total
+    const vanillaInput = await screen.findByRole("spinbutton", {
+      name: "Vanilla",
+    });
+    userEvent.clear(vanillaInput);
+    userEvent.type(vanillaInput, "1");
+    const hotfudgeInput = await screen.findByRole("checkbox", {
+      name: "Hot fudge",
+    });
+    userEvent.click(hotfudgeInput);
+    expect(grandTotal).toHaveTextContent(/\$3.50$/i);
+
+    // update toppings, then scoops and check grand total
+    const mmsInput = await screen.findByRole("checkbox", {
+      name: "M&Ms",
+    });
+    userEvent.click(mmsInput);
+    const chocolateInput = await screen.findByRole("spinbutton", {
+      name: "Chocolate",
+    });
+    userEvent.clear(chocolateInput);
+    userEvent.type(chocolateInput, "2");
+    expect(grandTotal).toHaveTextContent(/\$9.00/i);
   });
 });
