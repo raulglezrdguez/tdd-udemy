@@ -35,8 +35,11 @@ describe("OrderEntry", () => {
     render(<OrderEntry />);
 
     // check grandTotal start on $0.00
-    const grandTotal = screen.getByText("Grand total: $", {
-      exact: false,
+    // const grandTotal = screen.getByText("Grand total: $", {
+    //   exact: false,
+    // });
+    const grandTotal = screen.getByRole("heading", {
+      name: /grand total: \$/i,
     });
     expect(grandTotal).toHaveTextContent(/\$0.00/i);
 
@@ -63,5 +66,14 @@ describe("OrderEntry", () => {
     userEvent.clear(chocolateInput);
     userEvent.type(chocolateInput, "2");
     expect(grandTotal).toHaveTextContent(/\$9.00/i);
+
+    // remove toppings and check grand total
+    userEvent.click(mmsInput);
+    expect(grandTotal).toHaveTextContent(/\$7.50/i);
+
+    // remove scoops and check grand total
+    userEvent.clear(chocolateInput);
+    userEvent.type(chocolateInput, "0");
+    expect(grandTotal).toHaveTextContent(/\$3.50/i);
   });
 });
