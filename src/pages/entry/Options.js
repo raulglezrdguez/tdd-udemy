@@ -6,7 +6,8 @@ import AlertBanner from "../common/AlertBanner";
 import ScoopOption from "./ScoopOption";
 import ToopingOption from "./ToopingOption";
 
-import { formatCurrency, useOrderDetails } from "../../context/OrderDetails";
+import { useOrderDetails } from "../../context/OrderDetails";
+import { formatCurrency } from "../../utilities";
 
 function Options({ optionType }) {
   // optionType: 'scoops' or 'toppings'

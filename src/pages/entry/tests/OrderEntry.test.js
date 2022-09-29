@@ -31,6 +31,15 @@ describe("OrderEntry", () => {
     // });
   });
 
+  test("grand total starts at $0.00", () => {
+    render(<OrderEntry />);
+
+    const grandTotal = screen.getByRole("heading", {
+      name: /grand total: \$/i,
+    });
+    expect(grandTotal).toHaveTextContent(/\$0.00/i);
+  });
+
   test("update scoops, then toppings and check grandTotal", async () => {
     render(<OrderEntry />);
 
