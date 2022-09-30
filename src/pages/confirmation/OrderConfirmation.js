@@ -42,8 +42,6 @@ function OrderConfirmation({ setOrderPhase }) {
   } else {
     return <div>Loading...</div>;
   }
-
-  return <div>OrderConfirmation</div>;
 }
 
 export default OrderConfirmation;
