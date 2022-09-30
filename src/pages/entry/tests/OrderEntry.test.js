@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-debugging-utils */
 import { rest } from "msw";
 
 import {
@@ -84,5 +85,36 @@ describe("OrderEntry", () => {
     userEvent.clear(chocolateInput);
     userEvent.type(chocolateInput, "0");
     expect(grandTotal).toHaveTextContent(/\$3.50/i);
+  });
+
+  test("disable order sundae button for no scoops", async () => {
+    render(<OrderEntry setOrderPhase={jest.fn()} />);
+
+    // grandTotal to be $0.00
+    const grandTotal = screen.getByRole("heading", {
+      name: /grand total: \$/i,
+    });
+    expect(grandTotal).toHaveTextContent(/\$0.00/i);
+
+    // orderButton to be disabled
+    const orderButton = screen.getByRole("button", { name: /order sundae/i });
+    expect(orderButton).toBeDisabled();
+
+    // add vanilla scoop
+    const vanillaScoop = await screen.findByRole("spinbutton", {
+      name: /vanilla/i,
+    });
+    userEvent.clear(vanillaScoop);
+    userEvent.type(vanillaScoop, "1");
+
+    // orderButton to be enabled
+    expect(orderButton).toBeEnabled();
+
+    // clear vanilla scoop
+    userEvent.clear(vanillaScoop);
+    userEvent.type(vanillaScoop, "0");
+
+    // orderButton to be disabled
+    expect(orderButton).toBeDisabled();
   });
 });
