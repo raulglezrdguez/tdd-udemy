@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useOrderDetails } from "../../context/OrderDetails";
+import AlertBanner from "../common/AlertBanner";
 
 function OrderConfirmation({ setOrderPhase }) {
   const [, , resetOrder] = useOrderDetails();
   const [orderNumber, setOrderNumber] = useState(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:3030/order", {
@@ -14,9 +16,8 @@ function OrderConfirmation({ setOrderPhase }) {
         return response.json();
       })
       .then((data) => setOrderNumber(data.orderNumber))
-      .catch((error) => {
-        console.log(error.message);
-        // TODO: handle error
+      .catch((err) => {
+        setError(true);
       });
   }, []);
 
@@ -27,6 +28,11 @@ function OrderConfirmation({ setOrderPhase }) {
     // send back to order page
     setOrderPhase("inProgress");
   };
+
+  if (error) {
+    // return <AlertBanner variant={null} message={null} />;
+    return <AlertBanner variant={"span"} message={null} />;
+  }
 
   if (orderNumber) {
     return (
