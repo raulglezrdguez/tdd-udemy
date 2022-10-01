@@ -6,13 +6,13 @@ function ScoopOption({ item: { name, imagePath }, updateItemCount }) {
 
   const handleChange = (event) => {
     const currentValue = event.target.value;
-    updateItemCount(name, currentValue);
 
     // parse string to number
     const testValue = parseFloat(currentValue);
-    setIsInvalid(
-      testValue < 0 || testValue > 10 || testValue !== parseInt(currentValue)
-    );
+    const notValid =
+      testValue < 0 || testValue > 10 || testValue !== parseInt(currentValue);
+    updateItemCount(name, notValid ? 0 : currentValue);
+    setIsInvalid(notValid);
   };
 
   return (
