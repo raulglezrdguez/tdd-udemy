@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Sydney",
+    "phone": "1111111111",
+    "email": "laura@gmail.com",
+    "image": { "url": "/images/sydney.png", "alt": "sydney" },
+    "favorite": false,
+    "color": "blue",
+    "gender": "female"
+  },
+  {
+    "id": 2,
+    "name": "Sydney",
+    "phone": "1111111111",
+    "email": "laura@gmail.com",
+    "image": { "url": "/images/sydney.png", "alt": "sydney" },
+    "favorite": false,
+    "color": "blue",
+    "gender": "female"
+  },
+  {
+    "id": 3,
+    "name": "Sydney",
+    "phone": "1111111111",
+    "email": "laura@gmail.com",
+    "image": { "url": "/images/sydney.png", "alt": "sydney" },
+    "favorite": false,
+    "color": "blue",
+    "gender": "female"
+  },
+  {
+    "id": 4,
+    "name": "Sydney",
+    "phone": "1111111111",
+    "email": "laura@gmail.com",
+    "image": { "url": "/images/sydney.png", "alt": "sydney" },
+    "favorite": false,
+    "color": "blue",
+    "gender": "female"
+  },
+  {
+    "id": 5,
+    "name": "Sydney",
+    "phone": "1111111111",
+    "email": "laura@gmail.com",
+    "image": { "url": "/images/sydney.png", "alt": "sydney" },
+    "favorite": false,
+    "color": "blue",
+    "gender": "female"
+  }
+]
