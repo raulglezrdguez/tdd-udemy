@@ -6,7 +6,7 @@ import cats from "../../mocks/cats.json";
 
 describe("Cards", () => {
   test("should render five cards", () => {
-    render(<Cards cats={cats} />);
+    render(<Cards cats={cats} updateFavorite={jest.fn()} />);
 
     // search cards
     const cards = screen.getAllByRole("article");

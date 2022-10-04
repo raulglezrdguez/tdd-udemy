@@ -11,6 +11,7 @@ const Pets = () => {
   const [error, setError] = useState(false);
   const [filters, setFilters] = useState({
     gender: "any",
+    favorite: "any",
   });
 
   useEffect(() => {
@@ -22,20 +23,32 @@ const Pets = () => {
       });
   }, []);
 
+  const updateFavorite = (id, favorite) => {
+    const newCats = [...cats];
+    const updateCat = newCats.find((cat) => cat.id === id);
+    updateCat.favorite = favorite;
+    setCats(newCats);
+  };
+
   if (error) {
     return <AlertBanner variant={"span"} message={null} />;
   }
 
   let catsFiltered = [...cats];
   if (filters.gender !== "any") {
-    catsFiltered = cats.filter((cat) => cat.gender === filters.gender);
+    catsFiltered = catsFiltered.filter((cat) => cat.gender === filters.gender);
+  }
+  if (filters.favorite !== "any") {
+    catsFiltered = catsFiltered.filter(
+      (cat) => cat.favorite === (filters.favorite === "favorite")
+    );
   }
 
   return (
     <div className="container">
       <div className="app-container">
         <Filter filters={filters} setFilters={setFilters} />
-        <Cards cats={catsFiltered} />
+        <Cards cats={catsFiltered} updateFavorite={updateFavorite} />
       </div>
     </div>
   );
